@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.todo.user.controller.UserController;
 import com.todo.user.domain.User;
 import com.todo.user.repository.UserRepository;
 
@@ -27,19 +26,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean login(String username, String password) {
+	public User login(String username, String password) {
 		logger.info("user logging in service");
 		User user = new User();
-		user.setId(1L);
 		user.setUsername(username);
-//		user.setPassword(password);
-		Example<User> userExample=Example.of(user);
+		user.setPassword(password);
+		Example<User> userExample = Example.of(user);
 		Optional<User> useroptional = userRepository.findOne(userExample);
-		
-		if (useroptional.get() != null)
-			return true;
-		else
-			return false;
+
+		try {
+			return useroptional.get();
+		} catch (Exception e) {
+			logger.error("user doesnot exist with given credential");
+			return null;
+
+		}
+
 	}
 
 }

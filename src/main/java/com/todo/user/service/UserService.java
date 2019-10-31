@@ -6,6 +6,6 @@ public interface UserService {
 
 	public void add(User user);
 
-	public boolean login(String username, String password);
+	public User login(String username, String password);
 
 }

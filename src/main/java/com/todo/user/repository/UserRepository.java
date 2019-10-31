@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.todo.user.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, QueryByExampleExecutor<User> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 }

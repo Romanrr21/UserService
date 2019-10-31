@@ -36,15 +36,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body("User is added");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, path = ("/login"))
-	public ResponseEntity<String> login(@RequestParam("username") String username,
+	@RequestMapping(method = RequestMethod.GET, path = ("/login"))
+	public ResponseEntity<User> login(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
 		logger.info("user =" + username +", password = "+" password"+ " is trying to login");
-		boolean loginSuccess = userService.login(username, password);
-		if(loginSuccess==true)
-			return ResponseEntity.status(HttpStatus.OK).body("Login Successful");
+		User user  = userService.login(username, password);
+		if(user != null)
+			return ResponseEntity.status(HttpStatus.OK).body(user);
 		else
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login Failed");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
 		
 	}
 
